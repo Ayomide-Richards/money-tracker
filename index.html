@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <line x1="2" y1="10" x2="22" y2="10"/>
+              <circle cx="16" cy="15" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Money Tracker</h1>
+            <p class="subtitle">Track your income and expenses simply</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Top Summary: Total Transactions & Financial Overview -->
+    <section class="summary-section" aria-label="Transaction and Balance Summary">
+      <!-- Total Transactions Count Card (Featured at top) -->
+      <div class="summary-card total-transactions-card">
+        <div class="summary-icon count-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/>
+            <line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+        </div>
+        <div class="summary-info">
+          <span class="summary-label">Total Transactions</span>
+          <span id="totalTransactionsCount" class="summary-value">0</span>
+        </div>
+      </div>
+
+      <!-- Financial Overview Cards -->
+      <div class="financial-cards-grid">
+        <div class="summary-card balance-card">
+          <div class="summary-info">
+            <span class="summary-label">Net Balance</span>
+            <span id="netBalance" class="summary-value">$0.00</span>
+          </div>
+        </div>
+
+        <div class="summary-card income-card">
+          <div class="summary-info">
+            <span class="summary-label">Total Income</span>
+            <span id="totalIncome" class="summary-value income-text">+$0.00</span>
+          </div>
+        </div>
+
+        <div class="summary-card expense-card">
+          <div class="summary-info">
+            <span class="summary-label">Total Expenses</span>
+            <span id="totalExpenses" class="summary-value expense-text">-$0.00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Transaction Form (Add & Edit) -->
+    <section class="card form-card" id="formSection">
+      <div class="card-header">
+        <h2 id="formTitle">Add New Transaction</h2>
+        <span id="editBadge" class="badge edit-badge hidden">Editing</span>
+      </div>
+
+      <form id="transactionForm" novalidate>
+        <!-- Type Selection -->
+        <div class="form-group">
+          <label class="field-label">Transaction Type</label>
+          <div class="type-selector" role="radiogroup" aria-label="Transaction Type">
+            <label class="type-option expense-option">
+              <input type="radio" name="transactionType" value="expense" checked>
+              <span class="type-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <polyline points="19 12 12 19 5 12"/>
+                </svg>
+                Expense
+              </span>
+            </label>
+            <label class="type-option income-option">
+              <input type="radio" name="transactionType" value="income">
+              <span class="type-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="19" x2="12" y2="5"/>
+                  <polyline points="5 12 12 5 19 12"/>
+                </svg>
+                Income
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Description Field -->
+        <div class="form-group">
+          <label for="descriptionInput" class="field-label">Description</label>
+          <input 
+            type="text" 
+            id="descriptionInput" 
+            placeholder="e.g., Grocery shopping, Monthly salary..." 
+            autocomplete="off"
+            maxlength="100"
+            required
+          >
+          <span class="input-error" id="descriptionError">Please enter a description.</span>
+        </div>
+
+        <!-- Amount Field -->
+        <div class="form-group">
+          <label for="amountInput" class="field-label">Amount</label>
+          <div class="amount-input-wrapper">
+            <span class="currency-symbol">$</span>
+            <input 
+              type="number" 
+              id="amountInput" 
+              placeholder="0.00" 
+              step="0.01" 
+              min="0.01"
+              required
+            >
+          </div>
+          <span class="input-error" id="amountError">Please enter a valid amount greater than 0.</span>
+        </div>
+
+        <!-- Form Action Buttons -->
+        <div class="form-actions">
+          <button type="submit" id="submitBtn" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span id="submitBtnText">Add Transaction</span>
+          </button>
+          <button type="button" id="cancelEditBtn" class="btn btn-secondary hidden">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Transactions List & Search -->
+    <section class="card list-card">
+      <div class="list-header">
+        <div class="list-title-group">
+          <h2>Transactions</h2>
+          <span id="filteredCountBadge" class="count-pill">0</span>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-wrapper">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input 
+            type="search" 
+            id="searchInput" 
+            placeholder="Search by description or type..." 
+            aria-label="Search transactions"
+          >
+          <button type="button" id="clearSearchBtn" class="clear-search-btn hidden" aria-label="Clear search">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Transaction Items Container -->
+      <ul id="transactionList" class="transaction-list" aria-label="List of transactions">
+        <!-- Rendered by JavaScript -->
+      </ul>
+
+      <!-- Friendly Empty State (When no transactions exist yet) -->
+      <div id="emptyState" class="empty-state">
+        <div class="empty-icon-wrapper">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <h3>No transactions yet!</h3>
+        <p>Start tracking your money by adding your first income or expense above.</p>
+      </div>
+
+      <!-- No Search Results State -->
+      <div id="noResultsState" class="empty-state hidden">
+        <div class="empty-icon-wrapper search-empty">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <line x1="8" y1="11" x2="14" y2="11"/>
+          </svg>
+        </div>
+        <h3>No matching transactions</h3>
+        <p>Try searching for a different keyword or description.</p>
+        <button type="button" id="resetSearchBtn" class="btn btn-secondary btn-sm">Clear Search</button>
+      </div>
+    </section>
+
+    <!-- Delete Confirmation Modal Dialog -->
+    <div id="confirmModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-card">
+        <div class="modal-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"/>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/>
+            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+            <line x1="10" y1="11" x2="10" y2="17"/>
+            <line x1="14" y1="11" x2="14" y2="17"/>
+          </svg>
+        </div>
+        <h3 id="modalTitle">Delete Transaction?</h3>
+        <p id="modalDescription">Are you sure you want to delete this transaction? This action cannot be undone.</p>
+        <div class="modal-actions">
+          <button type="button" id="modalCancelBtn" class="btn btn-secondary">Cancel</button>
+          <button type="button" id="modalConfirmBtn" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
