@@ -34,3 +34,4 @@ No build tools, package managers, or servers are needed.
 ## 📄 License
 
 MIT
+

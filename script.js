@@ -47,15 +47,14 @@ const modalConfirmBtn = document.getElementById('modalConfirmBtn');
 // --- Helper Functions ---
 
 /**
- * Format number into USD currency format ($X,XXX.XX)
+ * Format number into Nigerian Naira currency format (₦X,XXX.XX)
  */
 function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  const formatted = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   }).format(amount);
+  return `₦${formatted}`;
 }
 
 /**

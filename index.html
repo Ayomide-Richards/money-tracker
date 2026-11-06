@@ -52,21 +52,21 @@
         <div class="summary-card balance-card">
           <div class="summary-info">
             <span class="summary-label">Net Balance</span>
-            <span id="netBalance" class="summary-value">$0.00</span>
+            <span id="netBalance" class="summary-value">₦0.00</span>
           </div>
         </div>
 
         <div class="summary-card income-card">
           <div class="summary-info">
             <span class="summary-label">Total Income</span>
-            <span id="totalIncome" class="summary-value income-text">+$0.00</span>
+            <span id="totalIncome" class="summary-value income-text">+₦0.00</span>
           </div>
         </div>
 
         <div class="summary-card expense-card">
           <div class="summary-info">
             <span class="summary-label">Total Expenses</span>
-            <span id="totalExpenses" class="summary-value expense-text">-$0.00</span>
+            <span id="totalExpenses" class="summary-value expense-text">-₦0.00</span>
           </div>
         </div>
       </div>
@@ -125,7 +125,7 @@
         <div class="form-group">
           <label for="amountInput" class="field-label">Amount</label>
           <div class="amount-input-wrapper">
-            <span class="currency-symbol">$</span>
+            <span class="currency-symbol">₦</span>
             <input 
               type="number" 
               id="amountInput" 
@@ -192,7 +192,9 @@
       <div id="emptyState" class="empty-state">
         <div class="empty-icon-wrapper">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            <rect x="2" y="5" width="20" height="14" rx="2"/>
+            <line x1="2" y1="10" x2="22" y2="10"/>
+            <circle cx="16" cy="14" r="1.5" fill="currentColor"/>
           </svg>
         </div>
         <h3>No transactions yet!</h3>
